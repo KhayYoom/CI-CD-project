@@ -23,7 +23,7 @@ jobs:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             IMAGE_NAME: my-image
           run: |
-            DOCKER_USERNAME=$(echo "$DOCKER_USERNAME" | xargs)
+            DOCKER_USERNAME=$(echo "$DOCKER_USERNAME" | xargs | tr '[:upper:]' '[:lower:]')
             docker build -t "$DOCKER_USERNAME/$IMAGE_NAME" .
             docker push "$DOCKER_USERNAME/$IMAGE_NAME:latest"
 
