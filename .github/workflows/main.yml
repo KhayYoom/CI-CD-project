@@ -18,6 +18,15 @@ jobs:
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_TOKEN }}
 
+        - name: "Debug DOCKER_USERNAME"
+          env:
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          run: |
+            echo "Length: ${#DOCKER_USERNAME}"
+            echo "Hex dump:"
+            echo -n "$DOCKER_USERNAME" | xxd
+            echo "Sanitized: $(echo "$DOCKER_USERNAME" | tr -cd 'a-zA-Z0-9_.-')"
+
         - name: "Build, tag, and push image to DockerHub"
           env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
